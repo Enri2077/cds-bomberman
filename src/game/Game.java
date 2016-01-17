@@ -2,7 +2,6 @@ package game;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -12,6 +11,7 @@ import javax.swing.JFrame;
 
 import entity.Player;
 import graphics.Screen;
+import graphics.Sprite;
 import input.Keyboard;
 import level.Level;
 import physics.Updater;
@@ -20,19 +20,21 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private int width = 960, height = 560;
-	private int scale = 1;
+	private int gridWidth = 4;
+	private int gridHeight = 4;
+	private int width = (3 + 2*gridWidth)*Sprite.SPRITE_SIZE, height = (3 + 2*gridHeight)*Sprite.SPRITE_SIZE;
+	private int scale = 2;
 	private Dimension size;
 	private String title = "Bomberman";
 	private Thread thread;
 	private boolean running = false;
-	private int levelCounter = 0;
+//	private int levelCounter = 0;
 	
 	private Screen screen;
 	private Keyboard input;
-	private Player player;
+//	private Player player;
 	private Level level;
-	private Font font;
+//	private Font font;
 	private Updater updater;
 	
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -70,8 +72,8 @@ public class Game extends Canvas implements Runnable {
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
-		int frames = 0;
-		int updates = 0;
+	//	int frames = 0;
+	//	int updates = 0;
 		requestFocus();
 		
 		while(running) {
@@ -81,17 +83,17 @@ public class Game extends Canvas implements Runnable {
 			
 			while(delta >= 1) {
 				update();
-				updates++;
+			//	updates++;
 				delta--;
 			}
 			
 			render();
-			frames++;
+	//		frames++;
 			
 			if((System.currentTimeMillis() - timer) > 1000) {
 				//frame.setTitle(title + " Alpha - " + updates + " ups , " + frames + " fps");
-				frames = 0;
-				updates = 0;
+			//	frames = 0;
+			//	updates = 0;
 				timer += 1000;
 			}
 		}
@@ -122,9 +124,9 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void setLevel() {
-		levelCounter++;
+	//	levelCounter++;
 		level = new Level(width,height);
-		Player player = new Player(5,5);
+		Player player = new Player(1.5f,2.5f);
 		level.players.add(player);
 	}
 

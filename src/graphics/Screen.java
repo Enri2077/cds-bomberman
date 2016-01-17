@@ -27,8 +27,15 @@ public class Screen {
 		renderBackground();
 		renderBricks(level);
 		renderPlayers(level);
+		renderBombs(level);
 	}
 	
+	private void renderBombs(Level level) {
+		for(Entity e : level.bomb){
+			renderTile(e.x*Sprite.SPRITE_SIZE,e.y*Sprite.SPRITE_SIZE,e.type);
+		}
+	}
+
 	public void renderBackground(){
 		for(int x=0;x<width;x+=Sprite.SPRITE_SIZE){
 			for(int y=0;y<height;y+=Sprite.SPRITE_SIZE){
@@ -50,6 +57,8 @@ public class Screen {
 			tile= Sprite.floor_sprite;
 		if(type==Type.BRICK)
 			tile= Sprite.brick_sprite;
+		if(type==Type.BOMB)
+			tile= Sprite.bomb_1;
 		for(int y = 0; y < Sprite.SPRITE_SIZE; y++) {
 			int ya = y + yp;
 			for(int x = 0; x < Sprite.SPRITE_SIZE; x++) {
@@ -64,8 +73,9 @@ public class Screen {
 	
 	public void renderPlayers(Level level){
 		for (Player p : level.players){
-			renderPlayer((int)p.realX,(int)p.realY,p.sprite);
-			//renderPlayer(p.x*Sprite.SPRITE_SIZE-Sprite.SPRITE_SIZE/2+2,p.y*Sprite.SPRITE_SIZE-Sprite.SPRITE_SIZE);
+			renderPlayer((int)(p.gridX*Sprite.SPRITE_SIZE)-Sprite.SPRITE_SIZE, (int)(p.gridY*Sprite.SPRITE_SIZE)-Sprite.SPRITE_SIZE-6,p.sprite);
+			//renderPlayer((int)p.realX,(int)p.realY,p.sprite);
+			//renderPlayer(p.x*Sprite.SPRITE_SIZE+2,p.y*Sprite.SPRITE_SIZE);
 		}
 	}
 

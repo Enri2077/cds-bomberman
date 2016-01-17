@@ -55,9 +55,13 @@ public class Sprite {
 	public static Sprite player_right_7 = new Sprite(PSIZEX, 0, 3, SpriteSheet.player);
 	public static Sprite player_right_8 = new Sprite(PSIZEX, 2, 3, SpriteSheet.player);
 
-	public static Sprite bomb_1 = new Sprite(64, 8, 1, SpriteSheet.tiles);
+	public static Sprite bomb_1 = new Sprite(16, 0, 3, SpriteSheet.level);
 	public static Sprite bomb_2 = new Sprite(64, 8, 2, SpriteSheet.tiles);
 	public static Sprite bomb_3 = new Sprite(64, 8, 3, SpriteSheet.tiles);
+	
+	public static Sprite cool_bomb_1 = new Sprite(16, 0, 1, SpriteSheet.bomb);
+	public static Sprite cool_bomb_2 = new Sprite(16, 0, 2, SpriteSheet.bomb);
+	public static Sprite cool_bomb_3 = new Sprite(16, 0, 3, SpriteSheet.bomb);
 
 	public static Sprite flame_1 = new Sprite(64, 0, 4, SpriteSheet.tiles);
 	public static Sprite flame_2 = new Sprite(64, 1, 4, SpriteSheet.tiles);

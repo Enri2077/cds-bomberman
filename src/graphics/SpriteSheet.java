@@ -12,7 +12,8 @@ public class SpriteSheet {
 
 	private String path;
 	public int[] pixels;
-	
+
+	public static SpriteSheet bomb = new SpriteSheet(64,640, "/textures/sheets/bomb.png");
 	public static SpriteSheet text = new SpriteSheet(864,864, "/textures/text/font.png");
 	public static SpriteSheet tiles = new SpriteSheet(576,576, "/textures/sheets/SpriteSheet.png");
 	public static SpriteSheet player = new SpriteSheet(288,640, "/textures/sheets/Player4.png");

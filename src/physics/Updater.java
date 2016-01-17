@@ -1,8 +1,8 @@
 package physics;
 
+import entity.Direction;
 import entity.Player;
 import entity.Type;
-import graphics.Sprite;
 import input.Keyboard;
 import level.Level;
 import level.PointXY;
@@ -19,47 +19,118 @@ public class Updater {
 	public void update(){
 		Player player = level.players.get(0);
 		player.updateAnimation();
-		PointXY pRight = new PointXY();
-		PointXY pLeft = new PointXY();
-		PointXY pMiddle = new PointXY();
-		pRight.X = (player.realX + +Sprite.SPRITE_SIZE/2)/Sprite.SPRITE_SIZE;
-		pLeft.X = (player.realX+Sprite.SPRITE_SIZE*1.5f)/Sprite.SPRITE_SIZE;
+		//PointXY pRight = new PointXY();
+		//PointXY pLeft = new PointXY();
+		//pRight.X = (player.realX + +Sprite.SPRITE_SIZE/2)/Sprite.SPRITE_SIZE;
+		//pLeft.X = (player.realX+Sprite.SPRITE_SIZE*1.5f)/Sprite.SPRITE_SIZE;
 
-		pLeft.Y = (player.realY +Sprite.SPRITE_SIZE*1.8f)/Sprite.SPRITE_SIZE;
-		pRight.Y = (player.realY +Sprite.SPRITE_SIZE*1.8f)/Sprite.SPRITE_SIZE;
+		//pLeft.Y = (player.realY +Sprite.SPRITE_SIZE*1.8f)/Sprite.SPRITE_SIZE;
+		//pRight.Y = (player.realY +Sprite.SPRITE_SIZE*1.8f)/Sprite.SPRITE_SIZE;
 		
-		pMiddle.X = (pRight.X+pLeft.X)/2;
-		pMiddle.Y = (player.realY+Sprite.SPRITE_SIZE)/Sprite.SPRITE_SIZE;
-		int newX = (int)((player.realX+Sprite.SPRITE_SIZE)/Sprite.SPRITE_SIZE);
-		int newY = (int)((player.realY+Sprite.SPRITE_SIZE)/Sprite.SPRITE_SIZE);
-
-		System.out.println("Rx:"+pMiddle.X +" X:"+(int)pMiddle.X+" Ry:"+pMiddle.Y+" Y:"+(int)(pMiddle.Y+.5f));
+	//	p.X = (pRight.X+pLeft.X)/2;
+	//	p.Y = (player.realY+Sprite.SPRITE_SIZE)/Sprite.SPRITE_SIZE;
+	//	System.out.println("Rx:"+p.X +" X:"+(int)p.X+" Ry:"+p.Y+" Y:"+(int)(p.Y+.5f));
+		
+		PointXY p = player.getPosition();		
 		
 		if(key.down || key.up || key.right || key.left)
 			player.walking = true;
 		else
 			player.walking = false;
+
+	/*	level.getContent(p);
+		level.getContentNorth(p);
+		level.getContentEast(p);
+		level.getContentSouth(p);
+		level.getContentWest(p);
+		*/
 		
+		Direction d = Direction.NONE;
+
+		if(key.down || key.up){
+			if(p.X%1.0 <= 0.4) d = Direction.RIGHT;
+			else if(p.X%1.0 > 0.6) d = Direction.LEFT;
+			
+			else if(key.down ) d = Direction.DOWN;
+			else if(key.up) d = Direction.UP;
+		}
+		if(key.right || key.left){
+			if(p.Y%1.0 <= 0.4) d = Direction.DOWN;
+			else if(p.Y%1.0 > 0.6) d = Direction.UP;
+			
+			else if(key.right) d = Direction.RIGHT;
+			else if(key.left) d = Direction.LEFT;
+		}
+		
+		boolean ignoreObstacles = false;
+		PointXY newP = new PointXY(p);
+		
+		switch(d){
+			case UP:
+				newP.Y -= player.speed;
+				if(ignoreObstacles || level.getContentUp(newP)==Type.FLOOR) player.setPosition(newP);
+				player.dir = 0;
+				break;
+			case DOWN:
+				newP.Y += player.speed;
+				if(ignoreObstacles || level.getContentDown(newP)==Type.FLOOR) player.setPosition(newP);
+				player.dir = 2;
+				break;
+			case RIGHT:
+				newP.X += player.speed;
+				if(ignoreObstacles || level.getContentRight(newP)==Type.FLOOR) player.setPosition(newP);
+				player.dir = 3;
+				break;
+			case LEFT:
+				newP.X -= player.speed;
+				if(ignoreObstacles || level.getContentLeft(newP)==Type.FLOOR) player.setPosition(newP);
+				player.dir = 1;
+				break;
+			case NONE:
+				break;
+		}
+		
+		System.out.format("x:%f \t y:%f \t d:%s\n", p.X, p.Y, d );
+		
+		
+		/*
 		if(key.down){
 			player.dir = 2;
-			if(level.matrix[(int)((pMiddle.X+pLeft.X)/2)][(int)pMiddle.Y+1]!=Type.BRICK && level.matrix[(int)((pMiddle.X+pRight.X)/2)][(int)pMiddle.Y+1]!=Type.BRICK)
-				player.realY+=player.speed;
+			if(level.getContentSouth(p.X, p.Y)==Type.FLOOR)
+				d = Direction.SOUTH;
+			else{
+				if(p.X%1 <= 0.25)	d = Direction.EAST;
+				else				d = Direction.WEST;
+			}
 		}
 		if(key.up){
 			player.dir = 0;
-			if(level.matrix[(int)((pMiddle.X+pLeft.X)/2)][(int)(pMiddle.Y+.5f)]!=Type.BRICK && level.matrix[(int)((pMiddle.X+pRight.X)/2)][(int)(pMiddle.Y+.5f)]!=Type.BRICK)
-				player.realY-=player.speed;
+			if(level.getContentNorth(p.X, p.Y)==Type.FLOOR)
+				d = Direction.NORTH;
+			else{
+				if(p.X%1 <= 0.25)	player.realX+=player.speed;
+				else				player.realX-=player.speed;
+			}
 		}
 		if(key.right){
 			player.dir = 3;
-			if(level.matrix[(int)pRight.X+1][(int)pRight.Y]!=Type.BRICK)
-				player.realX+=player.speed;
+			if(level.getContentEast(p.X, p.Y)==Type.FLOOR)
+				d = Direction.EAST;
+			else{
+				if(p.Y%1 >= 0.5)	player.realY+=player.speed;
+				else				player.realY-=player.speed;
+			}
 		}
 		if(key.left){
 			player.dir = 1;
-		    if(level.matrix[(int)pLeft.X-1][(int)pLeft.Y]!=Type.BRICK)
-		    	player.realX-=player.speed;
-		}
+			if(level.getContentWest(p.X, p.Y)==Type.FLOOR)
+				d = Direction.WEST;
+			else{
+				if(p.Y%1 >= 0.5)	player.realY+=player.speed;
+				else				player.realY-=player.speed;
+			}
+		}*/
+		
 	}
 	
 }
