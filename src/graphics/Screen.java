@@ -26,8 +26,8 @@ public class Screen {
 	public void renderLevel(Level level){
 		renderBackground();
 		renderBricks(level);
-		renderPlayers(level);
 		renderBombs(level);
+		renderPlayers(level);
 	}
 	
 	private void renderBombs(Level level) {

@@ -17,6 +17,7 @@ public class Player extends Entity {
 	public Sprite sprite;
 	public float gridX;
 	public float gridY;
+	private int bombInitCounter = 3; // default value of the counter for the pllayer's bombs
 	
 	public Player(float x, float y) {
 		this.x = (int)x;
@@ -142,6 +143,10 @@ public class Player extends Entity {
 			}
 		}
 		
+	}
+
+	public int getBombInitCounter() {
+		return bombInitCounter;
 	}
 
 }

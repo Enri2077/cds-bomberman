@@ -90,6 +90,12 @@ public class Updater {
 				break;
 		}
 		
+		if(key.space){
+			level.spawnBomb(player);
+		}
+		
+		if(key.esc) player.setPosition(new PointXY(1.5f, 1.5f));
+		
 		System.out.format("x:%f \t y:%f \t d:%s\n", p.X, p.Y, d );
 		
 		

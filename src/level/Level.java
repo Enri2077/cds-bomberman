@@ -151,4 +151,12 @@ public class Level {
 			return Type.BRICK;
 		}
 	}
+
+	public void spawnBomb(Player p) {
+		int i = (int) p.getPosition().X, j = (int) p.getPosition().Y;
+		if(this.getContent(p.getPosition()) == Type.FLOOR){
+			bomb.add(new Bomb(i, j, p.getBombInitCounter()));
+			matrix[i][j] = Type.BOMB;
+		}
+	}
 }
