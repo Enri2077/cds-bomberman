@@ -20,8 +20,8 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	private int gridWidth = 4;
-	private int gridHeight = 4;
+	private int gridWidth = 10;
+	private int gridHeight = 10;
 	private int width = (3 + 2*gridWidth)*Sprite.SPRITE_SIZE, height = (3 + 2*gridHeight)*Sprite.SPRITE_SIZE;
 	private int scale = 2;
 	private Dimension size;

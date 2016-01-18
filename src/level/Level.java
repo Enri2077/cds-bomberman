@@ -73,27 +73,13 @@ public class Level {
 		}
 		
 	}
-
-	public Type getContent(float x, float y){
-		try{
-			int contentX = (int)(x);
-			int contentY = (int)(y);
-			Type content = this.matrix[contentX][contentY];
-	
-			if(content == Type.BRICK) System.out.format("Current\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
-			return content;
-		}catch(ArrayIndexOutOfBoundsException e){
-			return Type.BRICK;
-		}
-	}
-
 	public Type getContent(PointXY p){
 		try{
 			int contentX = (int)(p.X);
 			int contentY = (int)(p.Y);
 			Type content = this.matrix[contentX][contentY];
 	
-			if(content == Type.BRICK) System.out.format("Current\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
+			if(content != Type.FLOOR) System.out.format("Current\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
 			return Type.BRICK;
@@ -105,8 +91,13 @@ public class Level {
 			int contentX = (int)(p.X);
 			int contentY = (int)(p.Y+0.55f) - 1;
 			Type content = this.matrix[contentX][contentY];
-			
-			if(content == Type.BRICK) System.out.format("North\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
+			if(content == Type.BOMB){
+				contentX = (int)(p.X);
+				contentY = (int)(p.Y) - 1;
+				content = this.matrix[contentX][contentY];
+				return content;
+			}
+			if(content != Type.FLOOR) System.out.format("North\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		//}catch(ArrayIndexOutOfBoundsException e){
 		//	return Type.BRICK;
@@ -118,8 +109,13 @@ public class Level {
 			int contentX = (int)(p.X-0.55f) + 1;
 			int contentY = (int)(p.Y);
 			Type content = this.matrix[contentX][contentY];
-	
-			if(content == Type.BRICK) System.out.format("East\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
+			if(content == Type.BOMB){
+				contentX = (int)(p.X)+1;
+				contentY = (int)(p.Y);
+				content = this.matrix[contentX][contentY];
+				return content;
+			}
+			if(content != Type.FLOOR) System.out.format("East\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
 			return Type.BRICK;
@@ -131,8 +127,15 @@ public class Level {
 			int contentX = (int)(p.X);
 			int contentY = (int)(p.Y-0.55f) + 1;
 			Type content = this.matrix[contentX][contentY];
+			
+			if(content == Type.BOMB){
+				contentX = (int)(p.X);
+				contentY = (int)(p.Y) + 1;
+				content = this.matrix[contentX][contentY];
+				return content;
+			}
 	
-			if(content == Type.BRICK) System.out.format("South\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
+			if(content != Type.FLOOR) System.out.format("South\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
 			return Type.BRICK;
@@ -144,8 +147,13 @@ public class Level {
 			int contentX = (int)(p.X+0.55f) - 1;
 			int contentY = (int)(p.Y);
 			Type content = this.matrix[contentX][contentY];
-	
-			if(content == Type.BRICK) System.out.format("West\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
+			if(content == Type.BOMB){
+				contentX = (int)(p.X)-1;
+				contentY = (int)(p.Y);
+				content = this.matrix[contentX][contentY];
+				return content;
+			}
+			if(content != Type.FLOOR) System.out.format("West\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
 			return Type.BRICK;

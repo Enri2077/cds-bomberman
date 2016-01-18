@@ -31,7 +31,7 @@ public class Player extends Entity {
 		this.sprite = Sprite.player_forward_1;
 		
 		// base values
-		speed = .1f;
+		speed = .075f;
 		bombsInHand = 3;
 		bombRange = 3;
 		
