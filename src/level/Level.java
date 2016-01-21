@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Bomb;
 import entity.Entity;
+import entity.Flame;
 import entity.Player;
 import entity.Type;
 import graphics.Sprite;
@@ -17,7 +18,7 @@ public class Level {
 	public int creeps;
 	public List<Player> players;
 	public List<Bomb> bomb;
-	//public static List<Flame> flame;
+	public List<Flame> flame;
 	public List<Entity> brick;
     public Type matrix[][];
 	
@@ -28,7 +29,7 @@ public class Level {
 		this.width = screenWidth/Sprite.SPRITE_SIZE;
 		this.height = screenHeight/Sprite.SPRITE_SIZE;
 		this.bomb = new ArrayList<Bomb>();
-		//flame = new ArrayList<Flame>();
+		this.flame = new ArrayList<Flame>();
 		this.brick = new ArrayList<Entity>();
 		this.players = new ArrayList<Player>();
 		this.matrix =  new Type[this.width][this.height];
@@ -66,8 +67,8 @@ public class Level {
 		for(int i=1; i<width-1; i++){
 			for(int j=1; j<height-1; j++){
 				if(ThreadLocalRandom.current().nextFloat() < 0.1 && matrix[i][j] == Type.FLOOR){
-					//bomb.add(new Bomb(i,j,5));
-					//matrix[i][j] = Type.BOMB;
+					//flame.add(new Flame(i,j));
+					//matrix[i][j] = Type.FLAME;
 				}
 			}
 		}
@@ -159,6 +160,17 @@ public class Level {
 			return Type.BRICK;
 		}
 	}
+	
+	public Bomb getBomb(int x,int y){
+		
+		for(Bomb b : bomb){
+			if(b.x == x && b.y == y)
+				return b;
+		}
+		Bomb empty = null;
+		return empty;
+	}
+
 
 	public void spawnBomb(Player p) {
 		if(p.bombsInHand>0){

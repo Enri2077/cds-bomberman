@@ -27,6 +27,7 @@ public class Screen {
 		renderBackground();
 		renderBricks(level);
 		renderBombs(level);
+		renderFlame(level);
 		renderPlayers(level);
 	}
 	
@@ -34,7 +35,15 @@ public class Screen {
 		for(Entity e : level.bomb){
 			renderTile(e.x*Sprite.SPRITE_SIZE,e.y*Sprite.SPRITE_SIZE,e.type);
 		}
+
 	}
+	
+	public void renderFlame(Level level) {
+		for(Entity e : level.flame){
+			renderTile(e.x*Sprite.SPRITE_SIZE,e.y*Sprite.SPRITE_SIZE,e.type);
+		}
+	}
+	
 
 	public void renderBackground(){
 		for(int x=0;x<width;x+=Sprite.SPRITE_SIZE){
@@ -57,6 +66,8 @@ public class Screen {
 			tile= Sprite.floor_sprite;
 		if(type==Type.BRICK)
 			tile= Sprite.brick_sprite;
+		if(type==Type.FLAME)
+			tile= Sprite.flame_1;
 		if(type==Type.BOMB)
 			tile= Sprite.bomb_1;
 		for(int y = 0; y < Sprite.SPRITE_SIZE; y++) {
@@ -110,21 +121,7 @@ public class Screen {
 		}
 	}
 	
-	public void renderFlame(int xp, int yp, Sprite sprite) {
-		xp = xp << 6;
-		yp = yp << 6;
-		
-		for(int y = 0; y < sprite.SIZEY; y++) {
-			int ya = yp + y;
-			for(int x = 0; x < sprite.SIZEX; x++) {
-				int xa = xp + x;
-				int col = sprite.pixels[x + y * sprite.SIZEY];
-				if(col == 0xFF870087) continue;
-				pixels[xa + ya * width] = col;
-			}
-		}
-	}
-	
+
 	public void renderCreeps(int xp, int yp, Sprite sprite, int flip) {
 		for(int y = 0; y < sprite.SIZEY; y++) {
 			int ya = yp + y;

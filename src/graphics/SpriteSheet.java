@@ -19,6 +19,8 @@ public class SpriteSheet {
 	public static SpriteSheet player = new SpriteSheet(288,640, "/textures/sheets/Player4.png");
 	public static SpriteSheet level = new SpriteSheet(1168,628, "/textures/sheets/Levels.png");
 	public static SpriteSheet grass = new SpriteSheet(326,281, "/textures/sheets/TilesetGrass.png");
+	public static SpriteSheet flame = new SpriteSheet(262,135, "/textures/sheets/BombFlame.png");
+	public static SpriteSheet items = new SpriteSheet(74,79, "/textures/sheets/Items.png");
 
 	public SpriteSheet(int sizex,int sizey, String path) {
 		this.SIZEX = sizex;

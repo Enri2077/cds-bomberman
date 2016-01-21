@@ -63,33 +63,12 @@ public class Sprite {
 	public static Sprite cool_bomb_2 = new Sprite(16, 0, 2, SpriteSheet.bomb);
 	public static Sprite cool_bomb_3 = new Sprite(16, 0, 3, SpriteSheet.bomb);
 
-	public static Sprite flame_1 = new Sprite(64, 0, 4, SpriteSheet.tiles);
-	public static Sprite flame_2 = new Sprite(64, 1, 4, SpriteSheet.tiles);
-	public static Sprite flame_3 = new Sprite(64, 2, 4, SpriteSheet.tiles);
-	public static Sprite flame_4 = new Sprite(64, 3, 4, SpriteSheet.tiles);
-	public static Sprite flame_5 = new Sprite(64, 4, 4, SpriteSheet.tiles);
+	public static Sprite flame_1 = new Sprite(16, 6, 3, SpriteSheet.flame);
+	public static Sprite flame_2 = new Sprite(16, 1, 4, SpriteSheet.flame);
+	public static Sprite flame_3 = new Sprite(16, 2, 4, SpriteSheet.flame);
+	public static Sprite flame_4 = new Sprite(16, 3, 4, SpriteSheet.flame);
+	public static Sprite flame_5 = new Sprite(16, 4, 4, SpriteSheet.flame);
 
-	public static Sprite creep_forward_1 = new Sprite(64, 0, 5, SpriteSheet.tiles);
-	public static Sprite creep_forward_2 = new Sprite(64, 1, 5, SpriteSheet.tiles);
-	public static Sprite creep_forward_3 = new Sprite(64, 2, 5, SpriteSheet.tiles);
-	public static Sprite creep_forward_4 = new Sprite(64, 3, 5, SpriteSheet.tiles);
-	public static Sprite creep_forward_5 = new Sprite(64, 4, 5, SpriteSheet.tiles);
-	public static Sprite creep_forward_6 = new Sprite(64, 5, 5, SpriteSheet.tiles);
-
-	public static Sprite creep_back_1 = new Sprite(64, 0, 6, SpriteSheet.tiles);
-	public static Sprite creep_back_2 = new Sprite(64, 1, 6, SpriteSheet.tiles);
-	public static Sprite creep_back_3 = new Sprite(64, 2, 6, SpriteSheet.tiles);
-	public static Sprite creep_back_4 = new Sprite(64, 3, 6, SpriteSheet.tiles);
-	public static Sprite creep_back_5 = new Sprite(64, 4, 6, SpriteSheet.tiles);
-	public static Sprite creep_back_6 = new Sprite(64, 5, 6, SpriteSheet.tiles);
-
-	public static Sprite creep_side_1 = new Sprite(64, 0, 7, SpriteSheet.tiles);
-	public static Sprite creep_side_2 = new Sprite(64, 1, 7, SpriteSheet.tiles);
-	public static Sprite creep_side_3 = new Sprite(64, 2, 7, SpriteSheet.tiles);
-	public static Sprite creep_side_4 = new Sprite(64, 3, 7, SpriteSheet.tiles);
-	public static Sprite creep_side_5 = new Sprite(64, 4, 7, SpriteSheet.tiles);
-	public static Sprite creep_side_6 = new Sprite(64, 5, 7, SpriteSheet.tiles);
-	public static Sprite creep_side_7 = new Sprite(64, 6, 7, SpriteSheet.tiles);
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZEX = SIZEY = size;

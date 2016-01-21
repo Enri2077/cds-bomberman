@@ -33,7 +33,7 @@ public class Player extends Entity {
 		// base values
 		speed = .075f;
 		bombsInHand = 3;
-		bombRange = 3;
+		bombRange = 10;
 		
 	}
 	
@@ -146,7 +146,7 @@ public class Player extends Entity {
 	}
 
 	public int getBombInitCounter() {
-		return bombInitCounter;
+		return bombRange;
 	}
 
 }
