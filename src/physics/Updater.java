@@ -1,5 +1,8 @@
 package physics;
 
+import java.util.ArrayList;
+
+import entity.Bomb;
 import entity.Direction;
 import entity.Player;
 import entity.Type;
@@ -17,6 +20,24 @@ public class Updater {
 	}
 	
 	public void update(){
+		updatePlayer();
+		updateBomb();
+	}
+	
+	public void updateBomb(){
+		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
+		for(Bomb b : level.bomb){
+			b.bombCounter--;
+			if(b.bombCounter<=0){
+				b.player.bombsInHand++;
+				level.matrix[b.x][b.y] = Type.FLOOR;
+				toRemove.add(b);
+			}
+		}
+		level.bomb.removeAll(toRemove);
+	}
+	
+	public void updatePlayer(){
 		Player player = level.players.get(0);
 		player.updateAnimation();
 		//PointXY pRight = new PointXY();

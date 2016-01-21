@@ -66,8 +66,8 @@ public class Level {
 		for(int i=1; i<width-1; i++){
 			for(int j=1; j<height-1; j++){
 				if(ThreadLocalRandom.current().nextFloat() < 0.1 && matrix[i][j] == Type.FLOOR){
-					bomb.add(new Bomb(i,j,5));
-					matrix[i][j] = Type.BOMB;
+					//bomb.add(new Bomb(i,j,5));
+					//matrix[i][j] = Type.BOMB;
 				}
 			}
 		}
@@ -161,10 +161,13 @@ public class Level {
 	}
 
 	public void spawnBomb(Player p) {
-		int i = (int) p.getPosition().X, j = (int) p.getPosition().Y;
-		if(this.getContent(p.getPosition()) == Type.FLOOR){
-			bomb.add(new Bomb(i, j, p.getBombInitCounter()));
-			matrix[i][j] = Type.BOMB;
+		if(p.bombsInHand>0){
+			int i = (int) p.getPosition().X, j = (int) p.getPosition().Y;
+			if(this.getContent(p.getPosition()) == Type.FLOOR){
+				bomb.add(new Bomb(i, j, p.getBombInitCounter(),p));
+				p.bombsInHand--;
+				matrix[i][j] = Type.BOMB;
+			}
 		}
 	}
 }
