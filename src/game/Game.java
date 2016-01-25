@@ -48,7 +48,7 @@ public class Game extends Canvas implements Runnable {
 		input = new Keyboard();
 		
 		setLevel();
-		updater = new Updater(input,level);
+		updater = new Updater(level);
 		addKeyListener(input);
 	}
 	
@@ -126,7 +126,7 @@ public class Game extends Canvas implements Runnable {
 	private void setLevel() {
 	//	levelCounter++;
 		level = new Level(width,height);
-		Player player = new Player(1.5f,2.5f);
+		Player player = new Player(1.5f,2.5f,input,1);
 		level.players.add(player);
 	}
 

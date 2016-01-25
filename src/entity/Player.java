@@ -1,6 +1,7 @@
 package entity;
 
 import graphics.Sprite;
+import input.Keyboard;
 import level.PointXY;
 
 public class Player extends Entity {
@@ -17,13 +18,17 @@ public class Player extends Entity {
 	public Sprite sprite;
 	public float gridX;
 	public float gridY;
+	public Keyboard input;
+	public int ID;
 	private int bombInitCounter = 3; // default value of the counter for the pllayer's bombs
 	
-	public Player(float x, float y) {
+	public Player(float x, float y,Keyboard key,int ID) {
 		this.x = (int)x;
 		this.y = (int)y;
+		this.ID = ID;
 	//	this.realX = x*Sprite.SPRITE_SIZE;
 	//	this.realY = y*Sprite.SPRITE_SIZE;
+		this.input = key;
 		this.gridX = x;
 		this.gridY = y;
 		walking = false;

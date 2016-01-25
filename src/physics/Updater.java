@@ -12,16 +12,15 @@ import level.Level;
 import level.PointXY;
 
 public class Updater {
-	public Keyboard key;
 	public Level level;
 	public ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
-	public Updater(Keyboard key,Level level){
-		this.key = key;
+	
+	public Updater(Level level){
 		this.level = level;
 	}
 	
 	public void update(){
-		updatePlayer();
+		updatePlayers();
 		updateBomb();
 		updateFlame();
 		level.bomb.removeAll(toRemove);
@@ -112,20 +111,14 @@ public class Updater {
 		}
 	}
 	
-	public void updatePlayer(){
-		Player player = level.players.get(0);
+	public void updatePlayers(){
+		for (Player player : level.players)
+			updatePlayer(player);
+	}
+	
+	public void updatePlayer(Player player){
 		player.updateAnimation();
-		//PointXY pRight = new PointXY();
-		//PointXY pLeft = new PointXY();
-		//pRight.X = (player.realX + +Sprite.SPRITE_SIZE/2)/Sprite.SPRITE_SIZE;
-		//pLeft.X = (player.realX+Sprite.SPRITE_SIZE*1.5f)/Sprite.SPRITE_SIZE;
-
-		//pLeft.Y = (player.realY +Sprite.SPRITE_SIZE*1.8f)/Sprite.SPRITE_SIZE;
-		//pRight.Y = (player.realY +Sprite.SPRITE_SIZE*1.8f)/Sprite.SPRITE_SIZE;
-		
-	//	p.X = (pRight.X+pLeft.X)/2;
-	//	p.Y = (player.realY+Sprite.SPRITE_SIZE)/Sprite.SPRITE_SIZE;
-	//	System.out.println("Rx:"+p.X +" X:"+(int)p.X+" Ry:"+p.Y+" Y:"+(int)(p.Y+.5f));
+		Keyboard key = player.input;
 		
 		PointXY p = player.getPosition();		
 		
@@ -192,46 +185,7 @@ public class Updater {
 		
 		if(key.esc) player.setPosition(new PointXY(1.5f, 1.5f));
 		
-		System.out.format("x:%f \t y:%f \t d:%s\n", p.X, p.Y, d );
-		
-		
-		/*
-		if(key.down){
-			player.dir = 2;
-			if(level.getContentSouth(p.X, p.Y)==Type.FLOOR)
-				d = Direction.SOUTH;
-			else{
-				if(p.X%1 <= 0.25)	d = Direction.EAST;
-				else				d = Direction.WEST;
-			}
-		}
-		if(key.up){
-			player.dir = 0;
-			if(level.getContentNorth(p.X, p.Y)==Type.FLOOR)
-				d = Direction.NORTH;
-			else{
-				if(p.X%1 <= 0.25)	player.realX+=player.speed;
-				else				player.realX-=player.speed;
-			}
-		}
-		if(key.right){
-			player.dir = 3;
-			if(level.getContentEast(p.X, p.Y)==Type.FLOOR)
-				d = Direction.EAST;
-			else{
-				if(p.Y%1 >= 0.5)	player.realY+=player.speed;
-				else				player.realY-=player.speed;
-			}
-		}
-		if(key.left){
-			player.dir = 1;
-			if(level.getContentWest(p.X, p.Y)==Type.FLOOR)
-				d = Direction.WEST;
-			else{
-				if(p.Y%1 >= 0.5)	player.realY+=player.speed;
-				else				player.realY-=player.speed;
-			}
-		}*/
+		//System.out.format("x:%f \t y:%f \t d:%s\n", p.X, p.Y, d );
 		
 	}
 	

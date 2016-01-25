@@ -13,7 +13,7 @@ public class Bomb extends Entity {
 		this.bombCounter = 0;
 		this.type = Type.BOMB;
 		this.player = player;
-		this.bombCounter = 100;
+		this.bombCounter = 150;
 	}
 	
 }
