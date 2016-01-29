@@ -26,19 +26,15 @@ public class ClientListener extends Listener{
         		   boolean found = false;
         		   for(Player play : level.players){
         			   if(play.ID == p.id){
-        				   play.gridX = (float) p.x;
-        				   play.gridY = (float) p.y;
-        				   play.input.up = p.up;
-        				   play.input.down = p.down;
-        				   play.input.space = p.space;
-        				   play.input.right = p.right;
-        				   play.input.left = p.left;
+        				   play.gridX = p.x;
+        				   play.gridY = p.y;
+        				   play.input = p.input;
         				   found = true;
         				   break;
         			   }
         		   }
         		   if(!found){
-        			   Player newP = new Player((float)p.x,(float)p.y,new Keyboard(),p.id);
+        			   Player newP = new Player(p.x,p.y,new Keyboard(),p.id);
         			   level.players.add(newP);
         		   }
         		   break;

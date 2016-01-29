@@ -34,11 +34,7 @@ public class ServerListener extends Listener{
 	       					pSerial.x = p.gridX;
 	       					pSerial.y = p.gridY;
 	       					pSerial.id = connection.getID();
-	       					pSerial.down = p.input.down;
-	       					pSerial.left = p.input.left;
-	       					pSerial.right = p.input.right;
-	       					pSerial.up = p.input.up;
-	       					pSerial.space = p.input.space;
+	       					pSerial.input = p.input;
 	       					ComObj msg = new ComObj(Msg.PLAYER,pSerial);
 	       					server.serverConn.sendToAllTCP(msg);
 	       					break;

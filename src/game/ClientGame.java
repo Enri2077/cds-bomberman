@@ -138,10 +138,9 @@ public class ClientGame extends Canvas implements Runnable {
 	private void setLevel() {
 	//	levelCounter++;
 		this.player = new Player(1.5f,2.5f,input,client.getID());
-		ComObj com = new ComObj(Msg.NEW_PLAYER,null); 
+		ComObj com = new ComObj(Msg.NEW_PLAYER,new Object()); 
 		this.client.sendTCP(com);
 		level.players.add(player);	  
-		this.client.addListener(new ClientListener(level));
 
 	}
 
@@ -150,12 +149,7 @@ public class ClientGame extends Canvas implements Runnable {
 		
 		game.client = new Client();
 	    game.client.start();
-	    try {
-			game.client.connect(5001, "127.0.0.1", 54555, 54777);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    
 	    Kryo kryo = game.client.getKryo();
 	    kryo.register(boolean[].class);
 	    kryo.register(Keyboard.class);
@@ -163,6 +157,16 @@ public class ClientGame extends Canvas implements Runnable {
 	    kryo.register(PlayerSerial.class);
 	    kryo.register(Object.class);
 	    kryo.register(ComObj.class);
+	    
+	    try {    
+			game.client.connect(5000, "127.0.0.1", 54555, 54777);
+			game.client.addListener(new ClientListener(game.level));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 
 		game.frame.setResizable(false);
 		game.frame.setTitle(game.title + " Alpha");

@@ -176,7 +176,7 @@ public class Level {
 		if(p.bombsInHand>0){
 			int i = (int) p.getPosition().X, j = (int) p.getPosition().Y;
 			if(this.getContent(p.getPosition()) == Type.FLOOR){
-				bomb.add(new Bomb(i, j, p.getBombInitCounter(),p));
+				bomb.add(new Bomb(i, j, p.bombRange,p));
 				p.bombsInHand--;
 				matrix[i][j] = Type.BOMB;
 			}

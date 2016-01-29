@@ -20,7 +20,6 @@ public class Player extends Entity {
 	public float gridY;
 	public Keyboard input;
 	public int ID;
-	private int bombInitCounter = 3; // default value of the counter for the pllayer's bombs
 	
 	public Player(float x, float y,Keyboard key,int ID) {
 		this.x = (int)x;
@@ -36,9 +35,9 @@ public class Player extends Entity {
 		this.sprite = Sprite.player_forward_1;
 		
 		// base values
-		speed = .075f;
-		bombsInHand = 3;
-		bombRange = 10;
+		speed = .070f;
+		bombsInHand = 1;
+		bombRange = 1;
 		
 	}
 	
@@ -148,10 +147,6 @@ public class Player extends Entity {
 			}
 		}
 		
-	}
-
-	public int getBombInitCounter() {
-		return bombRange;
 	}
 
 }

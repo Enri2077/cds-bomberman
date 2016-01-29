@@ -131,12 +131,7 @@ public class ServerGame extends Canvas implements Runnable {
 		ServerGame game = new ServerGame();
 		game.serverConn = new Server();
 		game.serverConn.start();
-	    try {
-	    	game.serverConn.bind(54555, 54777);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	    Kryo kryo = game.serverConn.getKryo();
 	    kryo.register(boolean[].class);
 	    kryo.register(Keyboard.class);
@@ -144,6 +139,14 @@ public class ServerGame extends Canvas implements Runnable {
 	    kryo.register(PlayerSerial.class);
 	    kryo.register(Object.class);
 	    kryo.register(ComObj.class);
+	    
+	    try {
+	    	game.serverConn.bind(54555, 54777);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	    
 	    game.serverConn.addListener(new ServerListener(game));
 	    

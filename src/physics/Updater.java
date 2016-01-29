@@ -67,8 +67,7 @@ public class Updater {
 			level.flame.add(center);
 			level.matrix[center.x][center.y] = Type.FLAME;
 
-			try{
-		
+			try{		
 				Flame up = new Flame(b.x,b.y-i);
 				if (level.matrix[up.x][up.y] != Type.BRICK && upBrick){
 					if(level.matrix[up.x][up.y] == Type.BOMB){
@@ -78,6 +77,10 @@ public class Updater {
 					level.matrix[up.x][up.y] = Type.FLAME;
 				}else
 					upBrick = false;
+			}
+			catch(Exception e){}
+			
+			try{
 				Flame down = new Flame(b.x,b.y+i);
 				if (level.matrix[down.x][down.y] != Type.BRICK && downBrick){
 					if(level.matrix[down.x][down.y] == Type.BOMB){
@@ -87,6 +90,10 @@ public class Updater {
 					level.matrix[down.x][down.y] = Type.FLAME;
 				}else
 					downBrick = false;
+			}
+			catch(Exception e){}
+			
+			try{
 				Flame right = new Flame(b.x+i,b.y);
 				if (level.matrix[right.x][right.y] != Type.BRICK && rightBrick){
 					if(level.matrix[right.x][right.y] == Type.BOMB){
@@ -96,6 +103,10 @@ public class Updater {
 					level.matrix[right.x][right.y] = Type.FLAME;
 				}else
 					rightBrick = false;
+			}
+			catch(Exception e){}
+			
+			try{
 				Flame left = new Flame(b.x-i,b.y);
 				if (level.matrix[left.x][left.y] != Type.BRICK && leftBrick){
 					if(level.matrix[left.x][left.y] == Type.BOMB){
@@ -105,9 +116,9 @@ public class Updater {
 					level.matrix[left.x][left.y] = Type.FLAME;
 				}else
 					leftBrick = false;
-			}catch(Exception e){
-				
 			}
+			catch(Exception e){}
+				
 		}
 	}
 	
