@@ -3,6 +3,7 @@ package physics;
 import java.util.ArrayList;
 
 import entity.Bomb;
+import entity.Entity;
 import entity.Direction;
 import entity.Flame;
 import entity.Player;
@@ -13,8 +14,9 @@ import level.PointXY;
 
 public class Updater {
 	public Level level;
-	public ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
-	
+	public ArrayList<Bomb> toRemoveBomb = new ArrayList<Bomb>();
+	public ArrayList<Entity> toRemoveBrick = new ArrayList<Entity>();
+
 	public Updater(Level level){
 		this.level = level;
 	}
@@ -23,11 +25,13 @@ public class Updater {
 		updatePlayers();
 		updateBomb();
 		updateFlame();
-		level.bomb.removeAll(toRemove);
+		level.bomb.removeAll(toRemoveBomb);
+		level.brick.removeAll(toRemoveBrick);
+
 	}
 	
 	public void updateBomb(){
-		ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
+		//ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
 		for(Bomb b : level.bomb){
 			b.bombCounter--;
 			if(b.bombCounter<=0){
@@ -41,7 +45,13 @@ public class Updater {
 		b.player.bombsInHand++;
 		level.matrix[b.x][b.y] = Type.FLOOR;
 		createFlame(b);
-		toRemove.add(b);
+		toRemoveBomb.add(b);
+	}
+	
+	public void destroyBrick(Entity b){
+		System.out.println("Destroing BRICK "+b.x+ " "+b.y);
+		level.matrix[b.x][b.y] = Type.FLOOR;
+		toRemoveBrick.add(b);
 	}
 	
 	public void updateFlame(){
@@ -54,6 +64,11 @@ public class Updater {
 			}
 		}
 		level.flame.removeAll(toRemove);
+	}
+	
+	public boolean checkType(Type t){
+		return t!=Type.BLOCK;
+		//return (t!=Type.BLOCK && t!=Type.BRICK);
 	}
 	
 	public void createFlame(Bomb b){
@@ -69,9 +84,13 @@ public class Updater {
 
 			try{		
 				Flame up = new Flame(b.x,b.y-i);
-				if (level.matrix[up.x][up.y] != Type.BRICK && upBrick){
+				if (checkType(level.matrix[up.x][up.y]) && upBrick){
 					if(level.matrix[up.x][up.y] == Type.BOMB){
 						destroyBomb(level.getBomb(up.x, up.y));
+					}
+					if(level.matrix[up.x][up.y] == Type.BRICK){
+						destroyBrick(level.getBrick(up.x, up.y));
+						upBrick = b.player.nuclearBomb;
 					}
 					level.flame.add(up);
 					level.matrix[up.x][up.y] = Type.FLAME;
@@ -82,10 +101,14 @@ public class Updater {
 			
 			try{
 				Flame down = new Flame(b.x,b.y+i);
-				if (level.matrix[down.x][down.y] != Type.BRICK && downBrick){
+				if (checkType(level.matrix[down.x][down.y]) && downBrick){
 					if(level.matrix[down.x][down.y] == Type.BOMB){
 						destroyBomb(level.getBomb(down.x, down.y));
 					}
+					if(level.matrix[down.x][down.y] == Type.BRICK){
+						destroyBrick(level.getBrick(down.x, down.y));
+						downBrick = b.player.nuclearBomb;
+					}					
 					level.flame.add(down);
 					level.matrix[down.x][down.y] = Type.FLAME;
 				}else
@@ -95,9 +118,13 @@ public class Updater {
 			
 			try{
 				Flame right = new Flame(b.x+i,b.y);
-				if (level.matrix[right.x][right.y] != Type.BRICK && rightBrick){
+				if (checkType(level.matrix[right.x][right.y]) && rightBrick){
 					if(level.matrix[right.x][right.y] == Type.BOMB){
 						destroyBomb(level.getBomb(right.x, right.y));
+					}
+					if(level.matrix[right.x][right.y] == Type.BRICK){
+						destroyBrick(level.getBrick(right.x, right.y));
+						rightBrick = b.player.nuclearBomb;
 					}
 					level.flame.add(right);
 					level.matrix[right.x][right.y] = Type.FLAME;
@@ -108,10 +135,14 @@ public class Updater {
 			
 			try{
 				Flame left = new Flame(b.x-i,b.y);
-				if (level.matrix[left.x][left.y] != Type.BRICK && leftBrick){
+				if (checkType(level.matrix[left.x][left.y]) && leftBrick){
 					if(level.matrix[left.x][left.y] == Type.BOMB){
 						destroyBomb(level.getBomb(left.x, left.y));
 					}
+					if(level.matrix[left.x][left.y] == Type.BRICK){
+						destroyBrick(level.getBrick(left.x, left.y));
+						leftBrick = b.player.nuclearBomb;
+					}					
 					level.flame.add(left);
 					level.matrix[left.x][left.y] = Type.FLAME;
 				}else

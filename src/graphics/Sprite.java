@@ -17,7 +17,7 @@ public class Sprite {
 
 	public static Sprite brick_sprite = new Sprite(16, 0, 1, SpriteSheet.level);
 	public static Sprite floor_sprite = new Sprite(16, 0, 2, SpriteSheet.grass);
-	public static Sprite border_sprite = new Sprite(16, 2, 1, SpriteSheet.level);
+	public static Sprite block_sprite = new Sprite(16, 2, 1, SpriteSheet.level);
 
 	public static Sprite player_forward_1 = new Sprite(PSIZEX, 0, 2, SpriteSheet.player);
 	public static Sprite player_forward_2 = new Sprite(PSIZEX, 1, 2, SpriteSheet.player);

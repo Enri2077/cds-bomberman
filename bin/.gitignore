@@ -1,6 +1,9 @@
-/game/
 /entity/
-/physics/
+/game/
+/graphics/
 /input/
-/serial/
+/kryonet-2.21-all.jar
 /level/
+/physics/
+/serial/
+/textures/

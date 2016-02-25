@@ -19,7 +19,9 @@ public class Level {
 	public List<Player> players;
 	public List<Bomb> bomb;
 	public List<Flame> flame;
+	public List<Entity> block;
 	public List<Entity> brick;
+
     public Type matrix[][];
 	
 	//public static Level level1 = new Level("/textures/levels/Level" + Level.levelCounter + ".png", Level.levelCounter);
@@ -30,6 +32,7 @@ public class Level {
 		this.height = screenHeight/Sprite.SPRITE_SIZE;
 		this.bomb = new ArrayList<Bomb>();
 		this.flame = new ArrayList<Flame>();
+		this.block = new ArrayList<Entity>();
 		this.brick = new ArrayList<Entity>();
 		this.players = new ArrayList<Player>();
 		this.matrix =  new Type[this.width][this.height];
@@ -39,36 +42,36 @@ public class Level {
 			}
 		}
 		
-		for(int i=0;i<this.width;i++){
-			
-			brick.add(new Entity(i,0,Type.BRICK));
-			matrix[i][0] = Type.BRICK;
-			brick.add(new Entity(i,this.height-1,Type.BRICK));
-			matrix[i][this.height-1] = Type.BRICK;
+		for(int i=0;i<this.width;i++){		
+			block.add(new Entity(i,0,Type.BLOCK));
+			matrix[i][0] = Type.BLOCK;
+			block.add(new Entity(i,this.height-1,Type.BLOCK));
+			matrix[i][this.height-1] = Type.BLOCK;
 		}
 		
-		for(int j=0;j<this.height;j++){
-			
-			brick.add(new Entity(0,j,Type.BRICK));
-			matrix[0][j] = Type.BRICK;
-			brick.add(new Entity(this.width-1,j,Type.BRICK));
-			matrix[this.width-1][j] = Type.BRICK;
+		for(int j=0;j<this.height;j++){			
+			block.add(new Entity(0,j,Type.BLOCK));
+			matrix[0][j] = Type.BLOCK;
+			block.add(new Entity(this.width-1,j,Type.BLOCK));
+			matrix[this.width-1][j] = Type.BLOCK;
 		}
 		
 		for(int i=0;i<width;i++){
 			for(int j=0;j<height;j++){
 				if(i%2==0 && j%2==0){
-					brick.add(new Entity(i,j,Type.BRICK));
-					matrix[i][j] = Type.BRICK;
+					block.add(new Entity(i,j,Type.BLOCK));
+					matrix[i][j] = Type.BLOCK;
 				}
 			}
 		}
-
-		for(int i=1; i<width-1; i++){
-			for(int j=1; j<height-1; j++){
-				if(ThreadLocalRandom.current().nextFloat() < 0.1 && matrix[i][j] == Type.FLOOR){
-					//flame.add(new Flame(i,j));
-					//matrix[i][j] = Type.FLAME;
+		
+		
+		//ADDING BRICK
+		for(int i=2;i<width-3;i++){
+			for(int j=2;j<height-3;j++){
+				if(i%2!=0 && j%2!=0){
+					brick.add(new Entity(i,j,Type.BRICK));
+					matrix[i][j] = Type.BRICK;
 				}
 			}
 		}
@@ -119,7 +122,7 @@ public class Level {
 			if(content != Type.FLOOR) System.out.format("East\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
-			return Type.BRICK;
+			return Type.BLOCK;
 		}
 	}
 
@@ -139,7 +142,7 @@ public class Level {
 			if(content != Type.FLOOR) System.out.format("South\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
-			return Type.BRICK;
+			return Type.BLOCK;
 		}
 	}
 
@@ -157,12 +160,11 @@ public class Level {
 			if(content != Type.FLOOR) System.out.format("West\tx:%d  y:%d = %s\n", contentX, contentY, content.toString() );
 			return content;
 		}catch(ArrayIndexOutOfBoundsException e){
-			return Type.BRICK;
+			return Type.BLOCK;
 		}
 	}
 	
-	public Bomb getBomb(int x,int y){
-		
+	public Bomb getBomb(int x,int y){	
 		for(Bomb b : bomb){
 			if(b.x == x && b.y == y)
 				return b;
@@ -171,6 +173,14 @@ public class Level {
 		return empty;
 	}
 
+	public Entity getBrick(int x,int y){	
+		for(Entity b : brick){
+			if(b.x == x && b.y == y)
+				return b;
+		}
+		Entity empty = null;
+		return empty;
+	}
 
 	public void spawnBomb(Player p) {
 		if(p.bombsInHand>0){

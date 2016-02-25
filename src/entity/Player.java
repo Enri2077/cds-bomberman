@@ -20,6 +20,7 @@ public class Player extends Entity {
 	public float gridY;
 	public Keyboard input;
 	public int ID;
+	public boolean nuclearBomb = true;
 	
 	public Player(float x, float y,Keyboard key,int ID) {
 		this.x = (int)x;
@@ -36,8 +37,8 @@ public class Player extends Entity {
 		
 		// base values
 		speed = .070f;
-		bombsInHand = 1;
-		bombRange = 1;
+		bombsInHand = 3;
+		bombRange = 25;
 		
 	}
 	
