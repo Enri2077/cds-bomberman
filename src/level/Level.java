@@ -21,7 +21,7 @@ public class Level {
 	public List<Flame> flame;
 	public List<Entity> block;
 	public List<Entity> brick;
-
+	public List<Entity> item;
     public Type matrix[][];
 	
 	//public static Level level1 = new Level("/textures/levels/Level" + Level.levelCounter + ".png", Level.levelCounter);
@@ -34,6 +34,7 @@ public class Level {
 		this.flame = new ArrayList<Flame>();
 		this.block = new ArrayList<Entity>();
 		this.brick = new ArrayList<Entity>();
+		this.item = new ArrayList<Entity>();
 		this.players = new ArrayList<Player>();
 		this.matrix =  new Type[this.width][this.height];
 		for(int i=0;i<this.width;i++){

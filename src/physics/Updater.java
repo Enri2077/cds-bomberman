@@ -23,6 +23,7 @@ public class Updater {
 	
 	public void update(){
 		updatePlayers();
+		checkItems();
 		updateBomb();
 		updateFlame();
 		level.bomb.removeAll(toRemoveBomb);
@@ -30,28 +31,34 @@ public class Updater {
 
 	}
 	
+	public void checkItems(){
+		
+	}
+	
 	public void updateBomb(){
 		//ArrayList<Bomb> toRemove = new ArrayList<Bomb>();
-		for(Bomb b : level.bomb){
-			b.bombCounter--;
-			if(b.bombCounter<=0){
-				destroyBomb(b);
+		for(Bomb bomb : level.bomb){
+			bomb.bombCounter--;
+			if(bomb.bombCounter<=0){
+				destroyBomb(bomb);
 			}
 		}
 		//level.bomb.removeAll(toRemove);
 	}
 	
-	public void destroyBomb(Bomb b){
-		b.player.bombsInHand++;
-		level.matrix[b.x][b.y] = Type.FLOOR;
-		createFlame(b);
-		toRemoveBomb.add(b);
+	public void destroyBomb(Bomb bomb){
+		bomb.player.bombsInHand++;
+		level.matrix[bomb.x][bomb.y] = Type.FLOOR;
+		createFlame(bomb);
+		toRemoveBomb.add(bomb);
 	}
 	
-	public void destroyBrick(Entity b){
-		System.out.println("Destroing BRICK "+b.x+ " "+b.y);
-		level.matrix[b.x][b.y] = Type.FLOOR;
-		toRemoveBrick.add(b);
+	public void destroyBrick(Entity brick){
+		//System.out.println("Destroing BRICK "+b.x+ " "+b.y);
+		level.matrix[brick.x][brick.y] = Type.FLOOR;
+		toRemoveBrick.add(brick);
+		level.matrix[brick.x][brick.y] = Type.BOMBITEM;
+		level.item.add(new Entity(brick.x,brick.y,Type.BOMBITEM));
 	}
 	
 	public void updateFlame(){

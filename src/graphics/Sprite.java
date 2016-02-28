@@ -69,6 +69,10 @@ public class Sprite {
 	public static Sprite flame_4 = new Sprite(16, 3, 4, SpriteSheet.flame);
 	public static Sprite flame_5 = new Sprite(16, 4, 4, SpriteSheet.flame);
 
+	public static Sprite bombItem = new Sprite(16, 0, 0, SpriteSheet.items);
+	public static Sprite flameItem = new Sprite(16, 0, 1, SpriteSheet.items);
+	public static Sprite speedItem = new Sprite(16, 0, 2, SpriteSheet.items);
+
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZEX = SIZEY = size;

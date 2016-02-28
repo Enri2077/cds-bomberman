@@ -25,6 +25,7 @@ public class Screen {
 	
 	public void renderLevel(Level level){
 		renderBackground();
+		renderItems(level);
 		renderFlame(level);
 		renderBricks(level);
 		renderBlocks(level);
@@ -36,7 +37,12 @@ public class Screen {
 		for(Entity e : level.bomb){
 			renderTile(e.x*Sprite.SPRITE_SIZE,e.y*Sprite.SPRITE_SIZE,e.type);
 		}
-
+	}
+	
+	private void renderItems(Level level) {
+		for(Entity e : level.item){
+			renderTile(e.x*Sprite.SPRITE_SIZE,e.y*Sprite.SPRITE_SIZE,e.type);
+		}
 	}
 	
 	public void renderFlame(Level level) {
@@ -78,6 +84,12 @@ public class Screen {
 			tile= Sprite.flame_1;
 		if(type==Type.BOMB)
 			tile= Sprite.bomb_1;
+		if(type==Type.BOMBITEM)
+			tile= Sprite.bombItem;
+		if(type==Type.FLAMEITEM)
+			tile= Sprite.flameItem;
+		if(type==Type.SPEEDITEM)
+			tile= Sprite.speedItem;
 		for(int y = 0; y < Sprite.SPRITE_SIZE; y++) {
 			int ya = y + yp;
 			for(int x = 0; x < Sprite.SPRITE_SIZE; x++) {
